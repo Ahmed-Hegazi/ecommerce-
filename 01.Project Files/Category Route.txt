@@ -1,0 +1,7 @@
+| POST      | categories                 | categories.store   | CategoriesController@
+| GET|HEAD  | categories                 | categories.index   | CategoriesController@index                        | web,auth     |
+| GET|HEAD  | categories/create          | categories.create  | CategoriesController@create                       | web,auth     |
+| DELETE    | categories/{category}      | categories.destroy | CategoriesController@destroy                      | web,auth     |
+| PUT|PATCH | categories/{category}      | categories.update  | CategoriesController@update                       | web,auth     |
+| GET|HEAD  | categories/{category}      | categories.show    | CategoriesController@show                         | web,auth     |
+| GET|HEAD  | categories/{category}/edit | categories.edit    | CategoriesController@edit                         | web,auth     |

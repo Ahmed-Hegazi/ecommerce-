@@ -1,0 +1,81 @@
+form
+------
+<form action="your-server-side-code" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_axMua1WJR8kJbRewpOk002om"
+    data-amount="999"
+    data-name="Demo Site"
+    data-description="Example charge"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto">
+  </script>
+</form>
+
+
+
+dump data result
+----------------
+array:4 [
+  "_token" => "DuC8Mpl1FhbUHi0O3ueIIxg8VHlRULViD3poRk03"
+  "stripeToken" => "tok_1CHrBvH2o9iR6ZZUGSYdBSbg"
+  "stripeTokenType" => "card"
+  "stripeEmail" => "ahmedhegazy214@gmail.com"
+]
+
+
+my email
+----------
+Ahmed@123456789
+ahmed mohammed abdel samei
+ahmedhegazy214@gmail.com
+
+
+keys
+------
+Publishable key
+pk_test_axMua1WJR8kJbRewpOk002om
+Secret key
+sk_test_US5yv2r8DMkyeCzfxRfqx3xo
+
+
+function payment
+---------------
+public function pay(){
+       
+Stripe::setApiKey("sk_test_US5yv2r8DMkyeCzfxRfqx3xo");
+      
+$token = request()->stripeToken;
+
+    
+$charg = Charge::create([
+           
+	'amount' => Cart::toatal() * 100,
+           
+	'currency' => 'usd',
+           
+	'description' => 'books store ',
+           
+	'source' => $token,
+       
+	]);
+
+       
+//dd('your request is charged successfully');
+        
+	Session::flash('success','your purchase successfully check your email');
+        
+	Cart::destroy();
+                                            
+// PurchaseSuccessful() if you have phramters
+        
+// Mail::to(request()->stripeEmail)->send(new \App\Mail\PurchaseSuccessful);
+        
+// set the mailtrap.io first to recive the emails
+        return redirect('/');
+    
+}
+
+route
+-----
+Route::post('cart/checkout','CheckoutController@pay')->name('cart.pay');
